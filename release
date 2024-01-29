@@ -1,0 +1,71 @@
+#!/bin/bash
+# $1 is root // first argument
+
+
+# Development Workflow
+# 1. Changes
+# 2. Commit Changes: Use commit guide/lint.
+# n. ...
+# 4. (Maybe Squash)
+
+# Releae Work Flow: shown in this file.
+# 1. Bump Version
+# 2. Create ChangeLog
+# 3. Commit
+# 4. Tag and Push Tag
+# 5. Create Release
+
+
+## Overrides ##
+# Any of thes calls can be overridden with scripts in the ext folder.
+# The ext folder should exist in the project root under .clog/ext
+# examples:
+#  - ext/clog-bump
+#  - ext/clog-afterLog
+#  - ext/git-tag
+
+SRC="$(dirname -- ${0})/src"
+ROOT=$($SRC/git configRoot) # Use git to find project root and configs.
+clogFile="$ROOT/CHANGELOG.md"
+source "$ROOT/clog.env"
+
+export REPO=$($SRC/git configRepo)
+export OWNER=$($SRC/git configOwner)
+
+# Config: $ROOT/clog.env
+service="$SERVICE"
+
+
+# 1 Bump Version
+echo " - Bump version."
+ver=$($SRC/clog bump)
+
+
+# 2 Update Change Log
+echo " - Update change log."
+$SRC/clog log "$clogFile"
+cl="$($SRC/clog getLastLog $clogFile)"
+
+# Apply any overrides.
+echo " - Modify changelog entry."
+o=$($SRC/clog afterLog "$cl")
+[[ -n "$o" ]] && cl="$o"
+
+
+# 3 Commit: Version + ChangeLog
+echo " - Commit: $ver"
+$SRC/git commit "chore(release): *$ver*"
+
+
+# 4 Tag & Push
+echo " - Tag and Push"
+$SRC/git tag "create release" "$ver"
+$SRC/git push
+
+
+# 5 Create Release
+echo " - Create Release: $ver"
+# - tag, name, branch, body
+$SRC/clog release "$ver" "$ver" "main" "$cl" "$service"
+
+

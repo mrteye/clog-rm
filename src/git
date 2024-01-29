@@ -1,0 +1,51 @@
+#!/bin/bash
+# Basic git commands.
+
+
+# Config
+function configOwner {
+  # get repo user or organization
+  [ -z "$OWNER" ] && {
+    OWNER=$(basename $(dirname `git ls-remote --get-url`))
+    echo "${OWNER//*:/}" # If path has :owner, remove everything up to :.
+  } || {
+    echo $OWNER
+  }
+}
+function configRepo {
+  # get repo name
+  [ -z "$REPO" ] && {
+    echo $(basename -s .git `git ls-remote --get-url`)
+  } || {
+    echo $REPO
+  }
+}
+function configRoot {
+  # get project root
+  [ -z "$ROOT" ] && {
+    echo $(git rev-parse --show-toplevel)
+  } || {
+    echo $ROOT
+  }
+}
+
+# git commit w/ add
+function commit {
+  local msg="$1"
+  git add .; git commit -m "$msg"
+}
+
+# 4 Tag & Push
+function tag {
+  local msg="$1"
+  local ver="$2"
+  git tag -a -m "$msg" "$ver"
+}
+
+function push {
+  git push --follow-tags
+}
+
+# Shepherd these functions.
+source $(dirname "${0}")/sheep; sheep "$@"
+

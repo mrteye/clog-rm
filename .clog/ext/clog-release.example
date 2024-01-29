@@ -1,0 +1,10 @@
+#!/bin/bash
+# Copy this file, remove .example from the name.
+# Uncomment a release call to use it, or create a new api call here.
+
+# Gitea
+../gitea release "$ver" "$ver" main "$cl"
+
+# Github
+#../github release "$ver" "$ver" main "$cl"
+

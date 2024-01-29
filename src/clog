@@ -1,0 +1,80 @@
+#!/bin/bash
+# Conventional ChangeLog Wrapper: clog
+
+
+
+# Returns the Version
+function bump {
+  releaseType=$(npx conventional-recommended-bump -p angular)
+  bumpVersion=$(npm version $releaseType --no-git-tag-version)
+
+  echo "$bumpVersion"
+}
+
+# Get the current package.json version.
+function version {
+  npm pkg get version | sed 's/\"//g'
+}
+
+# Create a log
+function log {
+  local file="$1"
+  
+  # Default
+  [ -z "$PRESET" ] && { PRESET="angular"; }
+
+  npx conventional-changelog \
+    --preset $PRESET \
+    --infile $file \
+    --same-file
+}
+
+# After log event: default - do nothing
+function afterLog {
+  :
+}
+
+# Reset the log from the beginning
+function resetLog {
+  local file="$1"
+  # Default
+  [ -z "$PRESET" ] && { PRESET="angular"; }
+  
+  npx conventional-changelog \
+    --preset $PRESET \
+    --infile $file \
+    --release-count 0
+}
+
+function logHelp {
+  npx conventional-changelog --help
+}
+
+function getLastLog {
+  local file="$1"
+  echo "$(git diff -U0 $file | tail -n +6 | exec sed 's/^+//')"
+}
+
+
+# Default to github; override with ext/clog-release; see examples in ext/.
+function release {
+  local tag="$1"
+  local name="$2"
+  local branch="$3"
+  local body="$4"
+  local service="$5"
+
+  # Global
+  # $SRC - script path
+
+  # Default
+  [ -z "$service" ] && { service="github"; }
+
+  echo " - Release: $SRC/$service release '$tag' '$name' '$branch' '$body'"
+  $SRC/$service release "$tag" "$name" "$branch" "$body"
+}
+
+
+# Shepherd these functions.
+source $(dirname "${0}")/sheep; sheep "$@"
+

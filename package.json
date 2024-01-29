@@ -1,0 +1,33 @@
+{
+  "name": "clog-rm",
+  "version": "0.7.1",
+  "description": "Simplify versions, logs, and releases. Standardize git commits with industry templates, automate version advancements using SemVer, maintain changelogs, and generate git host releases. Fully customizable with common defaults.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "clog-setup": "bash clog-setup",
+    "postinstall": "bash clog-init"
+  },
+  "keywords": [
+    "clog-rm",
+    "changelog",
+    "release management",
+    "tool",
+    "commitlint",
+    "SemVer"
+  ],
+  "author": "Tyler Gillispie",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "conventional-changelog-cli": "^4.1.0",
+    "conventional-recommended-bump": "^9.0.0",
+    "husky": "^9.0.5"
+  }
+}

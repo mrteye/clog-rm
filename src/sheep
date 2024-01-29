@@ -1,0 +1,76 @@
+#!/bin/bash
+# sheep: Shepherd these functions.
+# A simple list, import, or call of functions.  (w/ override)
+#
+# List: exec file
+#  - list declared functions.
+#  - ToDo: args, and other useful information
+# Import: source file
+#  - import file
+# Call: exec file w/ args [function, argN...]
+#  - first arg is a function name, remaining args passed to function.
+#  - call uses a common config: ../.env
+#  - functions can be overridden by script: ext/[file]-[function]
+#
+# Usage: Add these two lines to the bottom of a file full of functions.
+# Shepherd these functions.
+# source $(dirname "${0}")/sheep; sheep "$@"
+
+
+function sheep {
+  if [[ "${BASH_SOURCE[1]}" != "${0}" ]]; then
+    # Import
+    : # Do Nothing: no-op command
+  else
+    base="$(realpath -s $(dirname ${0})/..)"
+    export SRC="$base/src"  # Define global for script path.
+
+    # Find the config & root path.
+    config="clog.env"
+
+      
+    root="$base"
+    [ -f "$root/$config" ] || {
+      root=$(realpath -s "$root/..")
+      # up one?
+      [ -f "$root/$config" ] || {
+        root=$(realpath -s "$root/..")
+        # up two?
+        [ -f "$root/$config" ] && {
+          :
+        } || {
+          >&2 echo " - Config not found: $root/$config"
+          exit
+        }
+      }
+    }
+    # DeBug: echo -e "[[[\nroot: $root \nbase: $base \nSRC: $SRC \n ${0}\n]]]"; exit
+    source "$root/$config"
+
+
+    # first argument is a method or function 
+    local func=$1
+    shift
+    local file=$(basename "$0")
+    
+
+    override="$root/.clog/ext/$file-$func"
+    [[ -f "$override" ]] && {
+      # Override
+      "$override" "$@"
+    } || {
+      [[ "$(type -t $func)" == "function" ]] && {
+        # Call
+        "$func" "$@"
+        :  
+      } || {
+        # List
+        echo -e "Available Functions\n"
+        ret="$(declare -F)"
+        ret="${ret//declare -f/}" # Remove 'delcare -f' from output
+        echo "${ret//sheep$'\n'/}"  # Remove 'sheep'
+      }
+    }
+  fi
+}
+

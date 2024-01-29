@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# input: last log
+log="$1"
+
+# otput: last log
+echo "${log//change_this/to_this}"
+

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo " - Update permissions on ./release, and src/* scripts."
+
+chmod +x release
+chmod +x \
+  src/clog \
+  src/sheep \
+  src/git \
+  src/github \
+  src/gitea \
+  clog-setup
+

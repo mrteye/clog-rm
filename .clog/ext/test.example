@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Scripts ending in .example are stored in the repo, all otheres are ignored.
+
+

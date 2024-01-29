@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo '[Clog Setup]'
+# Setup Husky: git hook manager
+# Hist: npx husky install # deprecated
+echo ' - Setup Husky'
+npx husky init
+rm .husky/pre-commit
+
+echo ' - Copy commit lint config.'
+path="node_modules/clog-rm"
+cp "$path/commitlint.config.cjs" .
+
+# Setup CommitLint: git commit-msg hook
+echo ' - Setup git commit-msg hook with commit lint.'
+echo 'npx --no -- commitlint --edit ${1}' > .husky/commit-msg
+
+
+echo ' - Setup clog: .clog/ext, examples, overrides.'
+mkdir -p .clog/ext
+cp \
+  $path/ext/clog-afterLog.example  \
+  $path/ext/clog-release.example  \
+  $path/ext/test.example \
+  .clog/ext
+
