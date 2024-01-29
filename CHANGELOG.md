@@ -1,3 +1,12 @@
+# 0.8.0 (2024-01-29)
+
+
+### Features
+
+* **init:** transfer from lab ([7e1aadf](https://github.com/mrteye/clog-rm/commit/7e1aadfdc3acc8e5771c1065ec332ba2e6513af4))
+
+
+
 ## [0.7.1](https://192.168.1.205:222/tylerg/clog-rm/compare/v0.7.0...v0.7.1) (2024-01-29)
 
 
