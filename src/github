@@ -12,6 +12,8 @@ function release {
 
   # Github doesn't like \n (new line) in the body of releases.
   body="${body//$'\n'/\\r\\n}"
+  # Escape "
+  body="${body/\"/\\\"/}"
 
   read -r -d '' content << EOF
     "tag_name": "$tag",
