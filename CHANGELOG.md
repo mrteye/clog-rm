@@ -1,3 +1,12 @@
+## [0.8.1](https://github.com/mrteye/clog-rm/compare/v0.8.0...v0.8.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* **clog-setup:** use "sh" for entry point shell command ([179a496](https://github.com/mrteye/clog-rm/commit/179a49674efed965c068c92981825889904637e3))
+
+
+
 # 0.8.0 (2024-01-29)
 
 
