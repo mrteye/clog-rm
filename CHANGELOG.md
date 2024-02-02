@@ -1,3 +1,12 @@
+## [0.8.3](https://github.com/mrteye/clog-rm/compare/v0.8.2...v0.8.3) (2024-02-02)
+
+
+### Bug Fixes
+
+* **release:** add sh shell command ([dc00e18](https://github.com/mrteye/clog-rm/commit/dc00e185a557e36ae9f2c4ed8344ff1b96b1cbb0))
+
+
+
 ## [0.8.2](https://github.com/mrteye/clog-rm/compare/v0.8.1...v0.8.2) (2024-02-02)
 
 
