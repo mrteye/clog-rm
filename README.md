@@ -17,12 +17,13 @@ generate git host releases. Fully customizable with common defaults.
 ```
 
 ## .npmrc for pnpm
-Add this file before installing or reinstalling if a flat file structure is needed.
+Add this file before installing or reinstalling if husky is not found or
+other problems occur.
 
 The following .npmrc forces a flat file structure which will hoist all
 dependencies to the root node_modules folder.
 ``` .npmrc
-hoist-pattern[]=*conventional*
+node-linker=hoisted
 ```
 
 
