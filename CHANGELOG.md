@@ -1,3 +1,12 @@
+## [0.8.2](https://github.com/mrteye/clog-rm/compare/v0.8.1...v0.8.2) (2024-02-02)
+
+
+### Bug Fixes
+
+* **release:** escape unescaped-quotes in the body ([2d60a06](https://github.com/mrteye/clog-rm/commit/2d60a063523f820bcdfbbd474796449a563b7220))
+
+
+
 ## [0.8.1](https://github.com/mrteye/clog-rm/compare/v0.8.0...v0.8.1) (2024-02-02)
 
 
