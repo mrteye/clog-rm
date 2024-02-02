@@ -32,10 +32,10 @@ if (! path) {
 console.log(' - Found: %s/release', path);
 
 const cmd = 'release';
-const args = [];
+const args = [`${path}/${cmd}`];
 const options = {
     shell: true,
 };
-const proc = spawn(`${path}/${cmd}`, args, options);
+const proc = spawn('sh', args, options);
 proc.stdout.on('data', data => console.log(data.toString()));
 proc.stderr.on('data', data => console.log(' - Error: %s', data.toString()));
