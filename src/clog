@@ -22,11 +22,9 @@ function log {
   
   # Default
   [ -z "$PRESET" ] && { PRESET="angular"; }
+  [ -z "$file" ] && { file="CHANGELOG.md"; }
 
-  npx conventional-changelog \
-    --preset $PRESET \
-    --infile $file \
-    --same-file
+  npx conventional-changelog -p $PRESET -i $file -s
 }
 
 # After log event: default - do nothing
@@ -50,9 +48,12 @@ function logHelp {
   npx conventional-changelog --help
 }
 
+
 function getLastLog {
-  local file="$1"
-  echo "$(git diff -U0 $file | tail -n +6 | exec sed 's/^+//')"
+  # Default
+  [ -z "$PRESET" ] && { PRESET="angular"; }
+
+  npx conventional-changelog -p $PRESET
 }
 
 

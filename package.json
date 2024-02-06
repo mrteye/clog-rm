@@ -1,6 +1,6 @@
 {
   "name": "clog-rm",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Simplify versions, logs, and releases. Standardize git commits with industry templates, automate version advancements using SemVer, maintain changelogs, and generate git host releases. Fully customizable with common defaults.",
   "main": "index.js",
   "type": "module",

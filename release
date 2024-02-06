@@ -44,7 +44,7 @@ ver=$($SRC/clog bump)
 # 2 Update Change Log
 echo " - Update change log."
 $SRC/clog log "$clogFile"
-cl="$($SRC/clog getLastLog $clogFile)"
+cl="$($SRC/clog getLastLog)"
 
 # Apply any overrides.
 echo " - Modify changelog entry."
