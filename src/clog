@@ -1,7 +1,14 @@
 #!/bin/bash
 # Conventional ChangeLog Wrapper: clog
 
-
+# Event: Before anything (npx release: before)
+function before {
+  :
+}
+# Event: After evrything (npx release: after)
+function after {
+  :
+}
 
 # Returns the Version
 function bump {

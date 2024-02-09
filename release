@@ -37,6 +37,10 @@ export OWNER=$($SRC/git configOwner)
 service="$SERVICE"
 
 
+echo " - Event: before"
+$SRC/clog before
+
+
 # 1 Bump Version
 echo " - Bump version."
 ver=$($SRC/clog bump)
@@ -70,4 +74,7 @@ echo " - Create Release: $ver"
 # - clog release "tag", "name", "branch", "body", "git-host"
 $SRC/clog release "$ver" "$ver" "$BRANCH" "$cl" "$service"
 
+
+echo " - Event: after"
+$SRC/clog after
 
