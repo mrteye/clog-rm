@@ -47,8 +47,6 @@ clean="($SRC/git status)"
   exit;
 }
 
-$SRC/clog release-reset
-exit;
 
 # 1 Bump Version
 echo " - Bump version."
