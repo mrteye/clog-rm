@@ -37,6 +37,11 @@ function configRoot {
 function status {
   git status -s -uno
 }
+# Check if a file is untracked.
+function untracked {
+  local file="$1"
+  git status -su "$file"
+}
 
 # git add w/ options and files
 function add {

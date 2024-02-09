@@ -47,6 +47,8 @@ clean="($SRC/git status)"
   exit;
 }
 
+$SRC/clog release-reset
+exit;
 
 # 1 Bump Version
 echo " - Bump version."
@@ -74,6 +76,15 @@ $SRC/git commit "chore(release): *$ver*"
 echo " - Tag and Push"
 $SRC/git tag "create release" "$ver"
 $SRC/git push
+
+err="$?"
+[ "$err" == "1" ] && {
+  echo " - Warning: Remote diverged.  Please update and try again."
+  echo " - Resetting"
+  # Reset CHANGELOG.md, package.json & rm tag
+  $SRC/clog release-reset "$clogFile" "package.json" "$ver"
+  exit;
+}
 
 
 # 5 Create Release
