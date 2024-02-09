@@ -20,6 +20,10 @@ function configRepo {
     echo $REPO
   }
 }
+function configBranch {
+  # get branch name
+  git branch --show-current
+}
 function configRoot {
   # get project root
   [ -z "$ROOT" ] && {

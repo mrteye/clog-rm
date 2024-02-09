@@ -26,6 +26,7 @@
 
 SRC="$(dirname -- ${0})/src"
 ROOT=$($SRC/git configRoot) # Use git to find project root and configs.
+BRANCH=$($SRC/git configBranch)
 clogFile="$ROOT/CHANGELOG.md"
 source "$ROOT/clog.env"
 
@@ -66,7 +67,7 @@ $SRC/git push
 
 # 5 Create Release
 echo " - Create Release: $ver"
-# - tag, name, branch, body
-$SRC/clog release "$ver" "$ver" "main" "$cl" "$service"
+# - clog release "tag", "name", "branch", "body", "git-host"
+$SRC/clog release "$ver" "$ver" "$BRANCH" "$cl" "$service"
 
 
