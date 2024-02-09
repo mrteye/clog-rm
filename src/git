@@ -29,10 +29,16 @@ function configRoot {
   }
 }
 
-# git commit w/ add
+# git add w/ options and files
+function add {
+  local options="$@"
+  git add $options
+}
+
+# git commit w/ message
 function commit {
   local msg="$1"
-  git add .; git commit -m "$msg"
+  git commit -m "$msg"
 }
 
 # 4 Tag & Push

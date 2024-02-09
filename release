@@ -54,6 +54,7 @@ o=$($SRC/clog afterLog "$cl")
 
 # 3 Commit: Version + ChangeLog
 echo " - Commit: $ver"
+$SRC/git add "$clogFile" "package.json" # Add CHANGELOG.md & package.json
 $SRC/git commit "chore(release): *$ver*"
 
 
