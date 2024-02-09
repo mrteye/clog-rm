@@ -95,23 +95,17 @@ function release-reset {
   git reset --soft HEAD~1
 
   # restore CHANGELOG.md & package.json
-  git restore --staged $chg
-  git restore --staged $pkg
+  git restore --staged "$chg"
+  git restore --staged "$pkg"
 
-  # delete if untracked OR checkout latest version
-  [ -z "$($SRC/git untracked $chg)" ] && {
-    git checkout $chg;   # tracked
-  } || {
-    rm $chg;
-  }
-  [ -z "$($SRC/git untracked $pkg)" ] && {
-    git checkout $pkg   # tracked
-  } || {
-    rm $pkg;
-  }
+  # delete & restore; clean-up shortcut.
+  rm "$chg"
+  rm "$pkg"
+  git restore "$chg"
+  git restore "$pkg"
 
   # remove tag
-  git tag -d $tag
+  git tag -d "$tag"
 }
 
 
