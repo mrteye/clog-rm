@@ -36,9 +36,16 @@ export OWNER=$($SRC/git configOwner)
 # Config: $ROOT/clog.env
 service="$SERVICE"
 
-
+# Run event before everything else.  Override to use.
 echo " - Event: before"
 $SRC/clog before
+
+# Check for clean branch.
+clean="($SRC/git status)"
+[ -z "$clean" ] || {
+  echo ' - Warning: Branch not clean.  Please commit before running.'
+  exit;
+}
 
 
 # 1 Bump Version
@@ -75,6 +82,7 @@ echo " - Create Release: $ver"
 $SRC/clog release "$ver" "$ver" "$BRANCH" "$cl" "$service"
 
 
+# Run event after everything else.  Override to use.
 echo " - Event: after"
 $SRC/clog after
 

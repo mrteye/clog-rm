@@ -33,6 +33,11 @@ function configRoot {
   }
 }
 
+# Check for unclean branch; ignore untracked files
+function status {
+  git status -s -uno
+}
+
 # git add w/ options and files
 function add {
   local options="$@"
